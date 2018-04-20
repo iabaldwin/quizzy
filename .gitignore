@@ -2,3 +2,6 @@ entropy
 matching
 modeling
 strings
+/.idea/
+/cmake-build-debug/
+/build/
