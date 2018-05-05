@@ -22,6 +22,20 @@ constexpr std::array<std::array<float, kPatchSize>, kPatchSize> patchCandidate2 
                                                                                      {0.03114041,0.15132543,0.60837695,0.18235618,0.74499181},
                                                                                      {0.19450344,0.93216069,0.5751807 ,0.38489764,0.5703268},
                                                                                      {0.92990664,0.22307124,0.63934838,0.38695049,0.21440734}}};
+
+// simple squared L2 norm
+double similarity(const std::array<std::array<float, kPatchSize>, kPatchSize> &arr0,
+                  const std::array<std::array<float, kPatchSize>, kPatchSize> &arr1)
+{
+  double sim2 = 0.0;
+  for (size_t i = 0; i < kPatchSize; i++){
+    for (size_t j = 0; j < kPatchSize; j++){
+      sim2 += (arr0[i][j] - arr1[i][j]) * (arr0[i][j] - arr1[i][j]);
+    }
+  }
+  return sim2;
+}
+
 int main() {
   /*
    *Print out the similarity between the reference patch, and candidate 1
@@ -35,4 +49,7 @@ int main() {
    *Note: this is a suggested function signature, feel free to implement
    whatever you see fit!
    */
+
+  std::cout << similarity(referencePatch, patchCandidate1) << std::endl;
+  std::cout << similarity(referencePatch, patchCandidate2) << std::endl;
 }
