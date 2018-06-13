@@ -22,15 +22,58 @@ constexpr std::array<std::array<float, kPatchSize>, kPatchSize> patchCandidate2 
                                                                                      {0.03114041,0.15132543,0.60837695,0.18235618,0.74499181},
                                                                                      {0.19450344,0.93216069,0.5751807 ,0.38489764,0.5703268},
                                                                                      {0.92990664,0.22307124,0.63934838,0.38695049,0.21440734}}};
+
+
+
+float similarity(const std::array<std::array<float, kPatchSize>, kPatchSize> &refPatch, 
+                 const std::array<std::array<float, kPatchSize>, kPatchSize> &compPatch) {
+
+  float refSum  = 0;
+  float compSum = 0;
+  float refAvg = 0;
+  float compAvg = 0;
+
+  float num = 0;
+  float den = 0;
+  float sqSum1 = 0;
+  float sqSum2 = 0;
+
+  // cross correlation
+  for(int x = 0; x < kPatchSize; x++) {
+    for(int y = 0; y < kPatchSize; y++) {
+      refSum += refPatch[x][y];
+      compSum += compPatch[x][y];
+    }
+  }
+  refAvg = refSum/(kPatchSize*kPatchSize);
+  compAvg = compSum/(kPatchSize*kPatchSize);
+
+
+  for(int x = 0; x < kPatchSize; x++) {
+    for(int y = 0; y < kPatchSize; y++) {
+      num += (refPatch[x][y] - refAvg) * (compPatch[x][y] - compAvg);
+      sqSum1 += (refPatch[x][y] - refAvg) * (refPatch[x][y] - refAvg); 
+      sqSum2 += (compPatch[x][y] - compAvg) * (compPatch[x][y] - compAvg);
+    }
+  }
+
+  den = std::sqrt(sqSum1 * sqSum2);
+
+  return num/den;
+}
+
+
+
+
 int main() {
   /*
    *Print out the similarity between the reference patch, and candidate 1
    */
-  //std::cout << similarity(referencePatch, patchCandidate1) << std::endl;
+  std::cout << similarity(referencePatch, patchCandidate1) << std::endl;
   /*
    *Print out the similarity between the reference patch and candidate 2 
    */
-  //std::cout << similarity(referencePatch, patchCandidate2) << std::endl;
+  std::cout << similarity(referencePatch, patchCandidate2) << std::endl;
   /*
    *Note: this is a suggested function signature, feel free to implement
    whatever you see fit!
