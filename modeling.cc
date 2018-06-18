@@ -1,10 +1,15 @@
 #include <iostream>
 #include <cmath>
 #include <array>
+#include "eigen-git-mirror\Eigen\Dense"
+using namespace std;
+
+using namespace Eigen;
 
 constexpr int kDimensions = 2;
 constexpr int kDataPoints = 20;
-constexpr std::array<std::array<float, kDimensions>, kDataPoints> points = {{{3.8686992545234347, 1.3559682753431659},
+constexpr std::array<std::array<float, kDimensions>, kDataPoints> points =
+                                                                             {{{3.8686992545234347, 1.3559682753431659},
                                                                              {0.5180993375153686, 5.117486709676035},
                                                                              {3.5386436080165806, 1.5271125008781592},
                                                                              {4.728401339990676, 1.114753166423772},
@@ -27,14 +32,33 @@ constexpr std::array<std::array<float, kDimensions>, kDataPoints> points = {{{3.
 
 
 int main() {
-  /*
-   *Use a model of your choice to approximate the relationship between the
-   independent/dependent variable pairs above. Model choice is up to you - just
-   print out coefficients!
-   */
-  //std::cout << model(points) << std::endl;
-  /*
-   *Note: this is a suggested function signature, feel free to implement
-   whatever you see fit!
-   */
+    // https://math.stackexchange.com/questions/426048/find-the-least-square-solution-for-the-best-parabola
+
+    // I first plotted the points in a scatterplot.
+    // It was clear that the points followed a quadratic fit.
+
+    MatrixXd A(kDataPoints,3);
+    MatrixXd B(kDataPoints,1);
+
+    for (int i = 0; i < kDataPoints; i++)
+    {
+        A.row(i) << points[i][0] * points[i][0], points[i][0],1;
+        B.row(i) << points[i][1];
+    }
+
+    auto At = A.transpose();
+    auto AtA = At * A;
+    auto invAtA = AtA.inverse();
+
+    auto Atb = At * B;
+
+    auto equation = invAtA * Atb;
+
+    cout <<"Best fit equation:"<< equation.row(0) << "(x^2) + " << equation.row(1) << "(x) + " << equation.row(2) << endl;
+
+    auto residuals = B - A * equation;
+    double meanResidual = residuals.cwiseAbs().sum() / kDataPoints;
+    cout << "Mean Residual:" << meanResidual << endl;
+    double meanSqResidual = (residuals * residuals.transpose()).sum() / kDataPoints;
+    cout << "Mean Square Residual:" << meanSqResidual << endl;
 }
