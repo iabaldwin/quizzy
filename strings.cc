@@ -11,7 +11,8 @@ int main() {
   /*
    *Print out the number of palindromic words in this container
    */
-  //std::cout << std::count_if(words.begin(),
+   std::cout << "Hello" << std::endl;
+  // std::cout << std::count_if(words.begin(),
                              //words.end(),
                              //[](const std::string & word) {
                               //return isPalindromic(word);
