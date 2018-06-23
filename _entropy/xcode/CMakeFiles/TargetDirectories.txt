@@ -1,4 +1,0 @@
-/Users/esevalero/Desktop/OnePointNav/entropy/xcode/CMakeFiles/install.dir
-/Users/esevalero/Desktop/OnePointNav/entropy/xcode/CMakeFiles/entropy.dir
-/Users/esevalero/Desktop/OnePointNav/entropy/xcode/CMakeFiles/ALL_BUILD.dir
-/Users/esevalero/Desktop/OnePointNav/entropy/xcode/CMakeFiles/ZERO_CHECK.dir

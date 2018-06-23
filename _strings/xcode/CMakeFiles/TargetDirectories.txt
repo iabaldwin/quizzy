@@ -1,4 +1,0 @@
-/Users/esevalero/Desktop/OnePointNav/strings/xcode/CMakeFiles/install.dir
-/Users/esevalero/Desktop/OnePointNav/strings/xcode/CMakeFiles/strings.dir
-/Users/esevalero/Desktop/OnePointNav/strings/xcode/CMakeFiles/ALL_BUILD.dir
-/Users/esevalero/Desktop/OnePointNav/strings/xcode/CMakeFiles/ZERO_CHECK.dir
