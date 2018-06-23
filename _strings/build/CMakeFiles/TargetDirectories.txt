@@ -1,0 +1,7 @@
+/Users/esevalero/Desktop/OnePointNav/strings/build/CMakeFiles/install/local.dir
+/Users/esevalero/Desktop/OnePointNav/strings/build/CMakeFiles/install/strip.dir
+/Users/esevalero/Desktop/OnePointNav/strings/build/CMakeFiles/install.dir
+/Users/esevalero/Desktop/OnePointNav/strings/build/CMakeFiles/list_install_components.dir
+/Users/esevalero/Desktop/OnePointNav/strings/build/CMakeFiles/rebuild_cache.dir
+/Users/esevalero/Desktop/OnePointNav/strings/build/CMakeFiles/edit_cache.dir
+/Users/esevalero/Desktop/OnePointNav/strings/build/CMakeFiles/strings.dir
