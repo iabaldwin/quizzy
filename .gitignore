@@ -1,4 +1,12 @@
-entropy
-matching
-modeling
-strings
+_entropy/entropy
+_matching/matching
+_modeling/modeling
+_strings/strings
+_entropy/xcode
+_matching/xcode
+_modeling/xcode
+_strings/xcode
+_entropy/build
+_matching/build
+_modeling/build
+_strings/build
