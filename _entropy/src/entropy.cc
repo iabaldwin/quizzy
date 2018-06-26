@@ -6,7 +6,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                            //
-// \brief:  THis program Compute an estimate of the discrete entropy of a     //
+// \brief:  This program Compute an estimate the discrete entropy of a        //
 //          given source of random information (e.g.  "/dev/random"). Ensure  //
 //          that the random source provides integers ranging from [0,128],    //
 //          and assume that the input probability space is divided into 16    //
@@ -18,18 +18,14 @@
 //------------------------------------------------------------------------------
 // Includes
 //------------------------------------------------------------------------------
-#include <cmath>
+#include <math.h>
 #include <iostream>
 #include <fstream>
 #include <random>
 #include <sys/stat.h>
 #include <assert.h>
+#include <set>
 
-
-template <typename NumericType, int Discretization>
-NumericType entropy(const std::string& fileDescriptor) {
-  throw std::runtime_error("Implement me!");
-}
 
 //------------------------------------------------------------------------------
 // In line Functions
@@ -45,65 +41,86 @@ inline bool isFile (
     return (stat (name.c_str(), &buffer) == 0);
 }
 
-
 //------------------------------------------------------------------------------
 // \brief       Insert path to the random source
 //
 // \return      String container to the random source path
 //
-const std::string inserPathToRandomSource(
-    void
-){
+const std::string inserPathToRandomSource(){
+
     std::string path;
-    std::cout << "_____________________________________________________" << std::endl << std::endl;
+    std::cout << "*****************************************************" << std::endl << std::endl;
     std::cout << "Hey!" << std::endl;
     std::cout << "I can estimate the entropy of a random source! " << std::endl << std::endl ;
     std::cout << "Could you please insert the path to your random source? " << std::endl;
-    std::cout << "      1. I can deal with .csv coma separated files, " << std::endl;
-    std::cout << "      2. So, please ensure you feed me with csv files! " << std::endl << std::endl;
-    std::cout << "*****************************************************" << std::endl;
-    std::cout << "Insert Random Source File: " ;
+    std::cout << "-----------------------------------------------------" << std::endl;
+    std::cout << ">> Insert Random Source File : " ;
     std::cin >> path;
 
     bool fileOK = isFile(path);
 
     if (!fileOK){
-        std::cout << "Error: The File doesn´t exist." << std::endl;
-        assert( fileOK && "Error: The File doesn´t exist.") ;
-    }
-
-    bool isCSV = false;
-    if(path.substr(path.find_last_of(".") + 1) == "csv")
-        isCSV = true;
-
-    if (!isCSV){
-        std::cout << "Error: no .CSV file." << std::endl;
-        assert( isCSV && "Error: no .CSV file") ;
+        std::cout << "Error: The File doesn't exist." << std::endl;
+        assert( fileOK && "Error: The File doesn't exist.") ;
     }
 
     return path;
 }
 
+//------------------------------------------------------------------------------
+// \brief       Calculate the Shannon entropy
+//
+// \return      entropy in bits
+//
+template <typename NumericType, int Discretization>
+NumericType entropy(
+    const std::string& fileDescriptor   //< File path to a random source
+) {
+    // Some initializetions
+    const int MAX_RANGE = 128;
+    char word;
+    int numWord;
+    int idx;
+    int bins = MAX_RANGE/Discretization;
+    std::vector<int> hist(bins, 0);
+
+    // Reading file
+    std::ifstream source(fileDescriptor);
+    int lenFreq = 0;
+    while (source.good()){
+        source.get(word);
+        numWord = int(word);
+        // Histogram with the frecuency of repetitions
+        if (numWord>=0 && numWord<128){
+            idx = (int)(numWord / Discretization);
+            hist[idx] += 1;
+            lenFreq ++;
+        }
+    }
+    source.close();
+
+    NumericType ent = 0.0f;
+    for (auto freq=hist.begin(); freq != hist.end(); ++freq ){
+        if (*freq != 0){
+            /// Shannon entropy
+            float rep = (float)*freq/(float)lenFreq;
+            ent -=  rep * ( log2(rep) / log2(2.0) ) ;
+        }
+    }
+
+    return ent;
+}
 
 
 //------------------------------------------------------------------------------
 // Main
-//
+//------------------------------------------------------------------------------
 int main() {
 
     // Print out the entropy of a probability distribution over 8 discrete events,
     // with event occurrences given by a random source of information.
+     std::string path = inserPathToRandomSource();
+     std::cout << "The entropy of the file in bits is : " << entropy<float, 8>(path) << std::endl;
 
-    // std::cout << entropy<float, 8>("/dev/random") << std::endl;
-
-    std::string path = inserPathToRandomSource();
-
-    std::ifstream file ( path ); // declare file stream: http://www.cplusplus.com/reference/iostream/ifstream/
-    std::string value;
-    while ( file.good() )
-    {
-         getline ( file, value, ',' ); // read a string until next comma: http://www.cplusplus.com/reference/string/getline/
-         std::cout << value; // display value removing the first and the last character from it
-    }
-
+     return 0;
 }

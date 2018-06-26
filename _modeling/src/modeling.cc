@@ -201,8 +201,8 @@ void PolynomicRANSAC::fit(){
         }
 
         /// Populate 4 points matrices
-        int32_t iter = 0;
-        for ( std::set<int32_t>::iterator i=idx.begin(); i != idx.end(); ++i ){
+        int iter = 0;
+        for ( std::set<int>::iterator i=idx.begin(); i != idx.end(); ++i ){
             push_back(A4P, Vector3f( m_x[*i]*m_x[*i] , m_x[*i], 1.0), iter);
             b4P[iter] = m_y[*i];
             iter++;
