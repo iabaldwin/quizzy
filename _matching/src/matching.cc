@@ -43,33 +43,44 @@ constexpr std::array<std::array<float, kPatchSize>, kPatchSize> patchCandidate2 
                                                                                     {0.19450344,0.93216069,0.5751807 ,0.38489764,0.5703268},
                                                                                     {0.92990664,0.22307124,0.63934838,0.38695049,0.21440734}}};
 
-//------------------------------------------------------------------------------
-// Includes
-float crossCorrelation(){
-
-
-}
 
 //------------------------------------------------------------------------------
-// Includes
-float similarity(){
+// \brief       This fucntion analize the similarity of two patches if an
+//              gray scale image. It computes the Normalized Cross-Correlation
+//              between the two patches as a indicator of the similarity.
+//
+// \return      Ratio-percentage of the normalized cross-correlation
+//
+float similarity(
+    std::array<std::array<float, kPatchSize>, kPatchSize> reference,    //< Referemnce patch
+    std::array<std::array<float, kPatchSize>, kPatchSize> candidate     //< Candidate patch
+){
+    float NCC; //< Normalized cross correlation
 
+    float sumRefxCan = 0.000000000f;
+    float sumRefxRef = 0.000000000f;
+    float sumCanxCan = 0.000000000f;
 
+    for (int i = 0; i < kPatchSize; i++){
+        for (int j = 0; j < kPatchSize; j++){
+            sumRefxCan += reference[i][j]*candidate[i][j];
+            sumRefxRef += reference[i][j]*reference[i][j];
+            sumCanxCan += candidate[i][j]*candidate[i][j];
+        }
+    }
+
+    NCC = sumRefxCan / ( sqrt(sumRefxRef) * sqrt(sumCanxCan) );
+
+    return NCC*100.0f;
 }
 
 
-
+//------------------------------------------------------------------------------
+// Includes
+//------------------------------------------------------------------------------
 int main() {
-  /*
-   *Print out the similarity between the reference patch, and candidate 1
-   */
-  //std::cout << similarity(referencePatch, patchCandidate1) << std::endl;
-  /*
-   *Print out the similarity between the reference patch and candidate 2
-   */
-  //std::cout << similarity(referencePatch, patchCandidate2) << std::endl;
-  /*
-   *Note: this is a suggested function signature, feel free to implement
-   whatever you see fit!
-   */
+
+    std::cout << "The candidate 1 is a " << similarity(referencePatch, patchCandidate1) << "% similar to the Reference" << std::endl;
+    std::cout << "The candidate 2 is a " << similarity(referencePatch, patchCandidate2) << "% similar to the Reference" << std::endl;
+
 }
