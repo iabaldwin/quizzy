@@ -24,7 +24,7 @@ entropy:	entropy.cc
 # 0-255). For the reference patch, which is the closest candidate patch? (For
 # your definition of closeness).
 matching: matching.cc
-					g++ matching.cc -std=c++14 -o matching
+					g++ matching.cc -std=c++14 -o matching `pkg-config opencv --cflags --libs`
 
 # Modeling
 # You are given a list of input data points corresponding to
@@ -32,7 +32,7 @@ matching: matching.cc
 # dependent and independent variable with a polynomial model of your choice, and
 # report how well that model fits (the residual error).
 modeling:	modeling.cc
-					g++ modeling.cc -std=c++14 -o modeling
+					g++ modeling.cc -std=c++14 -o modeling -g `pkg-config opencv --cflags --libs`
 
 clean:
 	rm strings entropy matching modeling
