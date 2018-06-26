@@ -32,10 +32,10 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-// \brief   File sanity check inline function
+// \brief   File sanity check
 //
 inline bool isFile (
-    const std::string&  name        //< String with the name of the file to check
+    const std::string&  name        //< String with the name of the file
 ){
     struct stat buffer;
     return (stat (name.c_str(), &buffer) == 0);
@@ -74,7 +74,7 @@ const std::string inserPathToRandomSource(){
 //
 template <typename NumericType, int Discretization>
 NumericType entropy(
-    const std::string& fileDescriptor   //< File path to a random source
+    const std::string& fileDescriptor   //< File to a random source
 ) {
     // Some initializetions
     const int MAX_RANGE = 128;
@@ -90,13 +90,17 @@ NumericType entropy(
     while (source.good()){
         source.get(word);
         numWord = int(word);
+        
         // Histogram with the frecuency of repetitions
-        if (numWord>=0 && numWord<128){
+        // of every symbol
+        if (numWord >= 0 && numWord < MAX_RANGE){
+            
             idx = (int)(numWord / Discretization);
             hist[idx] += 1;
             lenFreq ++;
         }
     }
+    
     source.close();
 
     NumericType ent = 0.0f;

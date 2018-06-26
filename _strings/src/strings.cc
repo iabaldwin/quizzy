@@ -72,7 +72,7 @@ const std::string inserPathToFile(
 
 //------------------------------------------------------------------------------
 // \brief   this function take a text file as a input and return a vector of
-//          strings with al the words one by one.
+//          words in the file.
 //
 const auto readWords(
     std::string filePath    //< String with the path to the file
@@ -97,8 +97,9 @@ const auto readWords(
 bool isPalindromic(
     std::string word    //< word to analize as a palindromic
 ){
-    int start = 0,
+    int start = 0;
     int end   = word.length() - 1;
+    
     while (start < end) {
         if ( std::toupper(word[start++]) != std::toupper(word[end--]) )
             return false;
@@ -111,7 +112,7 @@ bool isPalindromic(
 
 //------------------------------------------------------------------------------
 // Main
-//
+//------------------------------------------------------------------------------
 int main() {
 
     //--------------------------------------------------------------------------

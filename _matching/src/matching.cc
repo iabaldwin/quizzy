@@ -45,9 +45,9 @@ constexpr std::array<std::array<float, kPatchSize>, kPatchSize> patchCandidate2 
 
 
 //------------------------------------------------------------------------------
-// \brief       This fucntion analize the similarity of two patches if an
+// \brief       This fucntion analize the similarity of two patches in a
 //              gray scale image. It computes the Normalized Cross-Correlation
-//              between the two patches as a indicator of the similarity.
+//              between the two patches as a indicator of its similarity.
 //
 // \return      Ratio-percentage of the normalized cross-correlation
 //
