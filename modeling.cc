@@ -92,7 +92,6 @@ cv::Mat model( const float pts[][kDimensions], bool USE_GD ) {
     
 };
 
-
 int main() {
   /*
    *Use a model of your choice to approximate the relationship between the
