@@ -1,3 +1,5 @@
+EIGEN_FLAGS := `pkg-config eigen3 --cflags`
+
 all: strings entropy matching modeling
 
 # Strings
@@ -32,7 +34,7 @@ matching: matching.cc
 # dependent and independent variable with a polynomial model of your choice, and
 # report how well that model fits (the residual error).
 modeling: modeling.cc
-	g++ modeling.cc -std=c++14 -o modeling
+	g++ modeling.cc -std=c++14 $(EIGEN_FLAGS) -o modeling 
 
 clean:
 	rm strings entropy matching modeling
