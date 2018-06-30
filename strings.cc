@@ -32,7 +32,6 @@ bool isPalindromic(const std::string &word) {
     right_idx--;
   }
 
-  std::cout << "palindrome: " << word << std::endl;
   return true;
 }
 

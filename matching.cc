@@ -49,4 +49,6 @@ int main() {
             << std::endl;
   std::cout << euclideanDistance<kPatchSize>(referencePatch, patchCandidate2)
             << std::endl;
+  std::cout << euclideanDistance<kPatchSize>(referencePatch, referencePatch)
+            << std::endl;
 }
