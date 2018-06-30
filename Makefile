@@ -36,3 +36,6 @@ modeling:	modeling.cc
 
 clean:
 	rm strings entropy matching modeling
+
+format:
+	clang-format -i *.cc
