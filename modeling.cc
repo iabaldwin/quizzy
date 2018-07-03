@@ -25,6 +25,25 @@ constexpr std::array<std::array<float, kDimensions>, kDataPoints> points = {{{3.
                                                                              {3.0128605724511037, 1.8897446209038709},
                                                                              {1.9357873494944466, 2.9778798335036534}}};
 
+void ModelFit(float coeff[])
+{
+    float x = 0, y = 0, xy = 0, x2 = 0;
+    float mean_x = 0, mean_y = 0;
+    for(int i = 0; i < kDataPoints; i++)
+    {
+        x += points[i][0];
+        y += points[i][1];
+        xy += points[i][0] * points[i][1];
+        x2 += points[i][0] * points[i][0];
+    }
+    mean_x = x/kDataPoints;
+    mean_y = y/kDataPoints;
+    float ss_xy = xy - (kDataPoints*mean_x*mean_y);
+    float ss_x2 = x2 - (kDataPoints*mean_x*mean_x);
+    coeff[0] = ss_xy/ss_x2;
+    coeff[1] = mean_y - coeff[0]*mean_x;
+}
+
 
 int main() {
   /*
@@ -37,4 +56,8 @@ int main() {
    *Note: this is a suggested function signature, feel free to implement
    whatever you see fit!
    */
+  float coefficients[2];
+  ModelFit(coefficients);
+  std::cout <<"coefficients for the model: y = C0 + C1*x"<<std::endl;
+  std::cout <<"coefficient C0:"<<coefficients[1]<<"\n"<<"coefficient C1:"<<coefficients[0]<<std::endl; 
 }

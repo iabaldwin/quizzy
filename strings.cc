@@ -2,6 +2,21 @@
 #include <fstream>
 #include <vector>
 #include <assert.h>
+#include <string>
+
+using namespace std;
+int NumberOfPalindrome(std::string DictionaryPath)
+{
+    std::string test;
+    int count = 0;
+    ifstream ReadDict(DictionaryPath);
+    while(ReadDict >> test)
+    {
+       count += std::equal(test.begin(), test.begin() + test.size() / 2, test.rbegin()); 
+    }
+    return count;
+    ReadDict.close();
+}
 
 int main() {
   /*
@@ -20,4 +35,7 @@ int main() {
    *Note: this is a suggested function signature, feel free to implement
    whatever you see fit!
    */
+  std::string path = "words.txt";
+  int PalindromeCount = NumberOfPalindrome(path);
+  cout << "The number of palindromes in the dictionary are :"<<PalindromeCount<<endl;
 }
