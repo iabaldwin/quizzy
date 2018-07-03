@@ -22,17 +22,64 @@ constexpr std::array<std::array<float, kPatchSize>, kPatchSize> patchCandidate2 
                                                                                      {0.03114041,0.15132543,0.60837695,0.18235618,0.74499181},
                                                                                      {0.19450344,0.93216069,0.5751807 ,0.38489764,0.5703268},
                                                                                      {0.92990664,0.22307124,0.63934838,0.38695049,0.21440734}}};
+                                                                                     
+float CalculateMean(std::array<std::array<float, kPatchSize>, kPatchSize> Patch)
+{
+    float sum = 0;
+    for (int i = 0; i < kPatchSize; i++)
+    {
+        for( int j = 0; j < kPatchSize; j++)
+        {
+            sum += Patch[i][j];
+        }
+    }
+    return sum / (kPatchSize*kPatchSize);
+}
+
+float CalculateSTD(std::array<std::array<float, kPatchSize>, kPatchSize> Patch)
+{
+    float sum = 0;
+    float mean = CalculateMean(Patch);
+    for (int i = 0; i < kPatchSize; i++)
+    {
+        for( int j = 0; j < kPatchSize; j++)
+        {
+            sum += (Patch[i][j]-mean)*(Patch[i][j]-mean);
+        }
+    }
+    return sqrt(sum/(kPatchSize*kPatchSize));
+}
+
+float similarity(std::array<std::array<float, kPatchSize>, kPatchSize> Patch1, std::array<std::array<float, kPatchSize>, kPatchSize> Patch2)
+{
+    float sum = 0;
+    float mean1 = CalculateMean(Patch1);
+    float mean2 = CalculateMean(Patch2);
+    float std1  = CalculateSTD(Patch1);
+    float std2  = CalculateSTD(Patch2);
+    
+    for (int i = 0; i < kPatchSize; i++)
+    {
+        for( int j = 0; j < kPatchSize; j++)
+        {
+            sum += (Patch1[i][j]-mean1)*(Patch2[i][j]-mean2);
+        }
+    }
+    return (sum/(kPatchSize*kPatchSize*std1*std2));
+}
+
 int main() {
   /*
    *Print out the similarity between the reference patch, and candidate 1
    */
-  //std::cout << similarity(referencePatch, patchCandidate1) << std::endl;
+    std::cout << similarity(referencePatch, patchCandidate1) << std::endl;
   /*
    *Print out the similarity between the reference patch and candidate 2 
    */
-  //std::cout << similarity(referencePatch, patchCandidate2) << std::endl;
+    std::cout << similarity(referencePatch, patchCandidate2) << std::endl;
   /*
    *Note: this is a suggested function signature, feel free to implement
    whatever you see fit!
    */
+  
 }
