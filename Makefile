@@ -7,7 +7,7 @@ all: strings entropy matching modeling
 # forwards and reverse order, and is case-sensitive (i.e. Z != z). Report total
 # count of palindromic words
 strings:	strings.cc
-					g++ strings.cc -std=c++14 -o strings
+					g++ strings.cc -std=c++11 -o strings
 
 # Entropy
 # Compute an estimate of the discrete entropy of a given source of random
@@ -16,7 +16,7 @@ strings:	strings.cc
 # divided into 16 events [0,...,8) -> 0, [8,...16) -> 1, etc. Report answer in
 # bits.
 entropy:	entropy.cc
-					g++ entropy.cc -std=c++14 -o entropy
+					g++ entropy.cc -std=c++11 -o entropy
 
 # Matching
 # You are given three sets of image patches, corresponding to portions of
@@ -24,7 +24,7 @@ entropy:	entropy.cc
 # 0-255). For the reference patch, which is the closest candidate patch? (For
 # your definition of closeness).
 matching: matching.cc
-					g++ matching.cc -std=c++14 -o matching
+					g++ matching.cc -std=c++11 -o matching
 
 # Modeling
 # You are given a list of input data points corresponding to
@@ -32,7 +32,7 @@ matching: matching.cc
 # dependent and independent variable with a polynomial model of your choice, and
 # report how well that model fits (the residual error).
 modeling:	modeling.cc
-					g++ modeling.cc -std=c++14 -o modeling
+					g++ modeling.cc -std=c++11 -o modeling
 
 clean:
 	rm strings entropy matching modeling
