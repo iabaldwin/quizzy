@@ -18,7 +18,7 @@ NumericType entropy(const std::string& filePath, const int64_t& requiredNumberOf
         //could not estimate entropy without taking samples
         return -1.f;
     }
-    int8_t randVal(0);
+    uint8_t randVal(0);
     //I'm making assumption that in task it was [0,128) range, but not [0,128]
     //this will make range for all 16 events equal and number will use 7 bits
     const int SIZE_TO_READ = 1;
@@ -38,7 +38,8 @@ NumericType entropy(const std::string& filePath, const int64_t& requiredNumberOf
                 break;
             }
 
-            randVal = std::abs(int(randVal));
+            //will use only 7 bits from byte
+            randVal = randVal >> 1;
 
             for(int iE = 0; iE < EVENTS_COUNT; ++iE) {
                 //checking if random value is not greater than max value of current event
