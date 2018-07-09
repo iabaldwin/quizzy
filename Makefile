@@ -32,7 +32,7 @@ matching: matching.cc
 # dependent and independent variable with a polynomial model of your choice, and
 # report how well that model fits (the residual error).
 modeling:	modeling.cc
-					g++ modeling.cc -std=c++14 -o modeling
+					g++ modeling.cc -std=c++14 -lgsl -lgslcblas -o modeling
 
 clean:
 	rm strings entropy matching modeling
