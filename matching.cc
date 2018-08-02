@@ -22,15 +22,32 @@ constexpr std::array<std::array<float, kPatchSize>, kPatchSize> patchCandidate2 
                                                                                      {0.03114041,0.15132543,0.60837695,0.18235618,0.74499181},
                                                                                      {0.19450344,0.93216069,0.5751807 ,0.38489764,0.5703268},
                                                                                      {0.92990664,0.22307124,0.63934838,0.38695049,0.21440734}}};
+
+float similarity( const std::array<std::array<float, kPatchSize>, kPatchSize>& patchFirst,
+                  const std::array<std::array<float, kPatchSize>, kPatchSize>& patchSecond )
+{
+  float accumulatedBrightnessDiff = 0;
+
+  for( int i = 0; i < patchFirst.size(); ++i )
+  {
+    for ( int j = 0; j < patchFirst[0].size(); j++ )
+    {
+      accumulatedBrightnessDiff += patchFirst[i][j] - patchSecond[i][j];
+    }
+  }
+
+  return accumulatedBrightnessDiff ;
+}
+
 int main() {
   /*
    *Print out the similarity between the reference patch, and candidate 1
    */
-  //std::cout << similarity(referencePatch, patchCandidate1) << std::endl;
+  std::cout << similarity(referencePatch, patchCandidate1) << std::endl;
   /*
    *Print out the similarity between the reference patch and candidate 2 
    */
-  //std::cout << similarity(referencePatch, patchCandidate2) << std::endl;
+  std::cout << similarity(referencePatch, patchCandidate2) << std::endl;
   /*
    *Note: this is a suggested function signature, feel free to implement
    whatever you see fit!
