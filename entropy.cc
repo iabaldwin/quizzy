@@ -22,9 +22,7 @@ NumericType entropy(const std::string& fileDescriptor)
   {
     value = distribution( generator );
 
-    std::cout << "value=" << value << std::endl;
     int bucket = ( ( double( buckets ) * value ) / rangeMax );
-    std::cout << "bucket      " << bucket << std::endl;
 
     histogram[ bucket ] += 1;
   }
@@ -34,10 +32,7 @@ NumericType entropy(const std::string& fileDescriptor)
   // estimate entropy of the results
   for ( double frequency : histogram )
   {
-    std::cout << "freq " << frequency << std::endl;    
-
     double log = log2( frequency / Discretization );
-    std::cout << "log " << log << std::endl;    
 
     if ( frequency != 0 )
     {
