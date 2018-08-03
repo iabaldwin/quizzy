@@ -1,9 +1,13 @@
 #include <iostream>
 #include <cmath>
 #include <array>
+#include <sstream>
+
+#include "PolynomialRegression.h"
 
 constexpr int kDimensions = 2;
 constexpr int kDataPoints = 20;
+constexpr int order = 5;
 constexpr std::array<std::array<float, kDimensions>, kDataPoints> points = {{{3.8686992545234347, 1.3559682753431659},
                                                                              {0.5180993375153686, 5.117486709676035},
                                                                              {3.5386436080165806, 1.5271125008781592},
@@ -26,15 +30,31 @@ constexpr std::array<std::array<float, kDimensions>, kDataPoints> points = {{{3.
                                                                              {1.9357873494944466, 2.9778798335036534}}};
 
 
+
+
 int main() {
-  /*
-   *Use a model of your choice to approximate the relationship between the
-   independent/dependent variable pairs above. Model choice is up to you - just
-   print out coefficients!
-   */
-  //std::cout << model(points) << std::endl;
-  /*
-   *Note: this is a suggested function signature, feel free to implement
-   whatever you see fit!
-   */
+
+  std::vector< float > coefficients;
+  std::vector< float > xpoints, ypoints;
+
+  //convert points into vector format
+  for ( auto point : points )
+  {
+    xpoints.push_back( point[0] );
+    ypoints.push_back( point[1] );
+  }
+
+  // get 2nd order fit (least squares ) 
+  PolynomialRegression< float > pr;
+  pr.fitIt( xpoints, ypoints, order, coefficients );
+
+  // output coefficients as csv text
+  std::string seperator = " ";
+  for ( auto co : coefficients )
+  {
+    std::cout << seperator << co;
+    seperator = ", ";
+  }
+
+  std::cout << std::endl;
 }
