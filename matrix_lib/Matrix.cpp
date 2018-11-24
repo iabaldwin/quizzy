@@ -9,7 +9,7 @@
 #include <exception>
 #include <iostream>
 
-#include "include/Matrix.h"
+#include "Matrix.h"
 
 
 Matrix::Matrix() : mRows(1), mCols(1) {

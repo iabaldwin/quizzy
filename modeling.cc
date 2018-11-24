@@ -4,7 +4,7 @@
 #include <vector>
 #include <valarray>
 
-#include "include/Matrix.h"
+#include "Matrix.h"
 
 constexpr int kDimensions = 2;
 constexpr int kDataPoints = 20;
