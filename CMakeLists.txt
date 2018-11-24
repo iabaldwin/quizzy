@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 3.8)
 project(quizzy)
 
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup(TARGETS)
+
+# Enable testing for libs
+enable_testing()
+
 # Adding other CMakeLists.txt
 add_subdirectory(matrix_lib)
 

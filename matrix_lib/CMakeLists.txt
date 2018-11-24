@@ -16,13 +16,12 @@ set_target_properties(matrix
         CXX_STANDARD_REQUIRED YES
 )
 
-
-# #Testing
-# enable_testing()
-# find_package(GTest REQUIRED)
-
-# add_executable(matrixTest tests/matrixTest.cpp)
-# target_link_libraries(matrixTest GTest::GTest GTest::Main)
-# target_link_libraries(matrixTest matrix)
-# target_include_directories(matrixTest PRIVATE include)
-# add_test(tests matrixTest)
+#Testing
+include(GoogleTest)
+add_executable(matrix_test ${PROJECT_SOURCE_DIR}/test/MatrixTest.cpp)
+target_link_libraries(matrix_test 
+    PRIVATE 
+        matrix 
+        CONAN_PKG::gtest
+)
+gtest_discover_tests(matrix_test)
