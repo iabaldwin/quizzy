@@ -10,6 +10,12 @@ target_include_directories(${PROJECT_NAME}
         ${PROJECT_SOURCE_DIR}
 )
 
+set_target_properties(matrix
+    PROPERTIES 
+        CXX_STANDARD 14
+        CXX_STANDARD_REQUIRED YES
+)
+
 
 # #Testing
 # enable_testing()
